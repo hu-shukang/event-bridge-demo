@@ -1,4 +1,1 @@
-# Create S3 Bucket
-
-- wechat-api-resource
-- wechat-api-assets
+# event-bridge-demo

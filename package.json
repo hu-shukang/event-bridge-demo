@@ -1,7 +1,7 @@
 {
-  "name": "wechat-api",
+  "name": "event-bridge-demo",
   "version": "1.0.0",
-  "description": "wechat-api for NodeJS",
+  "description": "event-bridge-demo for NodeJS",
   "main": "index.js",
   "repository": "https://github.com/awslabs/aws-sam-cli/tree/develop/samcli/local/init/templates/cookiecutter-aws-sam-hello-nodejs",
   "author": "SAM CLI",
@@ -12,7 +12,7 @@
     "compile": "tsc",
     "test": "npm run compile && npm run unit",
     "deploy": "npm run compile && sam deploy && npm run clear",
-    "destroy": "sam delete wechat-api",
+    "destroy": "sam delete event-bridge-demo",
     "local": "npm run compile && sam local start-api && npm run clear",
     "clear": "rimraf {src,test}/function/**/*.js src/layer/APISharedLayer/nodejs/src/{model,utils,service,repository}/{src/*,test/*,index}.js"
   },

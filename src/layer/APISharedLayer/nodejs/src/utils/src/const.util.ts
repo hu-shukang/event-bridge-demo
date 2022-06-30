@@ -6,7 +6,7 @@ export class Const {
   public static USER_TABLE_NAME_INDEX = 'name_index';
 
   // bucket name
-  public static ASSETS_BUCKRT = 'wechat-api-assets';
+  public static ASSETS_BUCKRT = 'event-bridge-demo-assets';
 
   // http
   public static HTTP_STATUS_400 = 400;
