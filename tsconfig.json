@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "commonjs",
+    "allowJs": true,
+    "removeComments": false,
+    "strict": true,
+    "moduleResolution": "node",
+    // "preserveConstEnums": true,
+    // "noEmit": true,
+    // "sourceMap": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    // "skipLibCheck": true,
+    // "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./"
+  },
+  "exclude": ["node_modules", "**/*.test.ts", "**/node_modules"],
+  "include": ["./src/function/**/*.ts", "./src/layer/**/*.ts"]
+}

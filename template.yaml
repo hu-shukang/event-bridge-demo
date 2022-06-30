@@ -1,0 +1,81 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  event-bridge-demo
+
+  Sample SAM Template for event-bridge-demo
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 100
+    Runtime: nodejs14.x
+    MemorySize: 128
+    Handler: index.handler
+    Layers:
+      - !Ref APISharedLayer
+Parameters:
+  Stage:
+    Description: 'stage name when deploy'
+    Type: String
+    Default: Dev
+
+Resources:
+  #==============================================================
+  # 共通レイヤー定義
+  #==============================================================
+  APISharedLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: EventBridgeDemoAPI-APISharedLayer
+      Description: 'EventBridgeDemoAPI-APISharedLayer'
+      ContentUri: src/layer/APISharedLayer
+      CompatibleRuntimes:
+        - nodejs14.x
+      RetentionPolicy: Retain
+  #==============================================================
+  # Lambda定義
+  #==============================================================
+  EventBridgeDemoAPI:
+    Type: AWS::Serverless::Api
+    Name: Event-Bridge-Demo-API
+    Properties:
+      StageName: !Sub ${Stage}
+  TestFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: EventBridgeDemoAPI-TestFunction
+      CodeUri: src/function/test
+      Description: 'test function'
+  AddScheduleFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: EventBridgeDemoAPI-AddScheduleFunction
+      CodeUri: src/function/schedule/add
+      Description: 'add schedule function'
+      Policies:
+        - arn:aws:iam::aws:policy/CloudWatchEventsFullAccess
+        - arn:aws:iam::aws:policy/AWSLambda_FullAccess
+      Events:
+        api:
+          Type: Api
+          Properties:
+            Path: /schedule
+            Method: post
+            RestApiId: !Ref EventBridgeDemoAPI
+  DeleteScheduleFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: EventBridgeDemoAPI-DeleteScheduleFunction
+      CodeUri: src/function/schedule/delete
+      Description: 'delete schedule function'
+      Policies:
+        - arn:aws:iam::aws:policy/CloudWatchEventsFullAccess
+        - arn:aws:iam::aws:policy/AWSLambda_FullAccess
+      Events:
+        api:
+          Type: Api
+          Properties:
+            Path: /schedule
+            Method: delete
+            RestApiId: !Ref EventBridgeDemoAPI

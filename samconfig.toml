@@ -1,0 +1,13 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "event-bridge-demo"
+s3_bucket = "hsk-code"
+s3_prefix = "event-bridge-demo"
+region = "ap-northeast-1"
+confirm_changeset = false
+beta_features = true
+capabilities = "CAPABILITY_IAM"
+disable_rollback = true
+image_repositories = []
