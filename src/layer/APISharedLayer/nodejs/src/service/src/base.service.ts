@@ -1,4 +1,4 @@
-import { ApiGatewayManagementApi, CloudWatchEvents, DynamoDB, Lambda, S3 } from 'aws-sdk';
+import { ApiGatewayManagementApi, CloudWatchEvents, DynamoDB, Lambda, S3, SNS } from 'aws-sdk';
 import { Const } from 'utils';
 
 export class BaseService {
@@ -7,6 +7,7 @@ export class BaseService {
   protected s3Client: S3;
   protected cwevents: CloudWatchEvents;
   protected lambda: Lambda;
+  protected snsClient: SNS;
 
   constructor() {
     this.docClient = new DynamoDB.DocumentClient({
@@ -26,6 +27,10 @@ export class BaseService {
 
     this.lambda = new Lambda({
       apiVersion: '2015-03-31',
+      region: Const.REGION,
+    });
+
+    this.snsClient = new SNS({
       region: Const.REGION,
     });
   }
